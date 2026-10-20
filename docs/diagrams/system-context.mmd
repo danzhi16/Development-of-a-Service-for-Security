@@ -1,0 +1,15 @@
+flowchart LR
+    dev["Developer / DevSecOps engineer"]
+    sec["Security engineer"]
+    res["Researcher / instructor"]
+    svc(["Security Assessment Service"])
+    llm["Local LLM server<br/>(vLLM / Ollama)"]
+    ana["Static analysers<br/>(Bandit, Semgrep, CodeQL)"]
+    ds["Public benchmarks<br/>(SecurityEval, LLMSecEval)"]
+
+    dev -->|"creates runs, reads ranking"| svc
+    sec -->|"checks snippets, reads findings"| svc
+    res -->|"uploads task sets, exports data"| svc
+    svc -->|"prompts / generated code"| llm
+    svc -->|"code files / findings"| ana
+    ds -->|"task prompts (imported once)"| svc
