@@ -1,0 +1,27 @@
+flowchart LR
+    dev(["Developer / DevSecOps"])
+    sec(["Security engineer"])
+    res(["Researcher"])
+
+    subgraph S["Security Assessment Service"]
+        UC1("UC-1 Create evaluation run")
+        UC2("UC-2 View model ranking and metrics")
+        UC3("UC-3 Compare analysers")
+        UC4("UC-4 Inspect snippet with findings")
+        UC5("UC-5 Export report")
+        UC6("UC-6 Check own code snippet")
+        UC7("UC-7 Upload custom task set")
+    end
+
+    dev --- UC1
+    dev --- UC2
+    dev --- UC5
+    sec --- UC4
+    sec --- UC6
+    sec --- UC2
+    res --- UC1
+    res --- UC3
+    res --- UC5
+    res --- UC7
+    UC7 -. "extends" .-> UC1
+    UC2 -. "includes" .-> UC4
