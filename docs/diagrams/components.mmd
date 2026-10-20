@@ -1,0 +1,28 @@
+flowchart TB
+    ui["Web UI<br/>(D. Mukhametkali)"]
+    api["API service (FastAPI)<br/>runs, tasks, reports, auth"]
+    mq[("RabbitMQ<br/>job queue")]
+    gen["Generation worker<br/>prompt builder + LLM client"]
+    scan["Analysis worker<br/>sandbox + analyser adapters"]
+    norm["Normaliser<br/>findings to CWE record"]
+    met["Metrics service<br/>rates, CWE distribution, agreement"]
+    db[("PostgreSQL<br/>runs, generations, findings")]
+    cache[("Redis<br/>cache, progress")]
+    llm["LLM server<br/>vLLM / Ollama"]
+    sb["Sandbox container<br/>no network, read-only fs"]
+    tasks["Task catalogue<br/>(D. Boranbayev)"]
+
+    ui -->|REST| api
+    api --> db
+    api --> cache
+    api -->|enqueue| mq
+    tasks -->|import| api
+    mq --> gen
+    gen -->|OpenAI-compatible API| llm
+    gen -->|code| mq
+    mq --> scan
+    scan -->|runs analysers in| sb
+    scan --> norm
+    norm --> db
+    met --> db
+    api --> met
