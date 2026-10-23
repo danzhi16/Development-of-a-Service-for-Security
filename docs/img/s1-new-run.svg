@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="540" viewBox="0 0 800 540" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#111827">
+  <defs>
+    <symbol id="cb" viewBox="0 0 16 16"><rect x="0.5" y="0.5" width="15" height="15" rx="3" fill="#2563eb" stroke="#2563eb"/><path d="M4 8.5l2.5 2.5L12 5.5" stroke="#fff" stroke-width="2" fill="none"/></symbol>
+    <symbol id="cb0" viewBox="0 0 16 16"><rect x="0.5" y="0.5" width="15" height="15" rx="3" fill="#fff" stroke="#9ca3af"/></symbol>
+  </defs>
+  <rect width="800" height="540" fill="#ffffff" stroke="#d1d5db"/>
+  <rect width="800" height="48" fill="#1f2937"/>
+  <text x="24" y="30" fill="#ffffff" font-weight="600">Security Assessment Service</text>
+  <text x="590" y="30" fill="#d1d5db">Runs</text><text x="650" y="30" fill="#d1d5db">Tasks</text><text x="716" y="30" fill="#d1d5db">User</text>
+
+  <text x="40" y="92" font-size="20" font-weight="600">New evaluation run</text>
+
+  <text x="40" y="140" fill="#374151" font-weight="600">Models</text>
+  <use href="#cb" x="180" y="127" width="16" height="16"/><text x="204" y="140">gemma-4-31b-it</text>
+  <use href="#cb" x="360" y="127" width="16" height="16"/><text x="384" y="140">deepseek-v4-flash</text>
+  <use href="#cb" x="560" y="127" width="16" height="16"/><text x="584" y="140">kimi-k2.6</text>
+  <text x="180" y="170" fill="#2563eb">+ add model</text>
+
+  <text x="40" y="220" fill="#374151" font-weight="600">Task set</text>
+  <circle cx="188" cy="215" r="7.5" fill="#fff" stroke="#2563eb"/><circle cx="188" cy="215" r="4" fill="#2563eb"/>
+  <text x="204" y="220">Built-in Python set (15 tasks)</text>
+  <circle cx="188" cy="250" r="7.5" fill="#fff" stroke="#9ca3af"/>
+  <text x="204" y="255">Upload JSONL</text>
+  <rect x="310" y="238" width="104" height="26" rx="4" fill="#f3f4f6" stroke="#d1d5db"/><text x="326" y="256">Choose file</text>
+
+  <text x="40" y="305" fill="#374151" font-weight="600">Conditions</text>
+  <use href="#cb" x="180" y="292" width="16" height="16"/><text x="204" y="305">Baseline</text>
+  <use href="#cb" x="300" y="292" width="16" height="16"/><text x="324" y="305">Security prefix</text>
+  <use href="#cb" x="460" y="292" width="16" height="16"/><text x="484" y="305">Analyser repair (max 3 rounds)</text>
+
+  <text x="40" y="355" fill="#374151" font-weight="600">Analysers</text>
+  <use href="#cb" x="180" y="342" width="16" height="16"/><text x="204" y="355">Bandit</text>
+  <use href="#cb" x="280" y="342" width="16" height="16"/><text x="304" y="355">Semgrep</text>
+  <use href="#cb" x="390" y="342" width="16" height="16"/><text x="414" y="355">CodeQL</text>
+
+  <rect x="40" y="390" width="720" height="44" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="56" y="417" fill="#1e3a8a">Jobs: 3 models × 15 tasks × 3 conditions = 135 generation jobs (+ repair rounds)</text>
+
+  <rect x="560" y="470" width="90" height="36" rx="6" fill="#ffffff" stroke="#d1d5db"/><text x="582" y="493">Cancel</text>
+  <rect x="664" y="470" width="96" height="36" rx="6" fill="#2563eb"/><text x="692" y="493" fill="#ffffff" font-weight="600">Start</text>
+</svg>

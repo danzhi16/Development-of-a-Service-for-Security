@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="260" viewBox="0 0 800 260" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#111827">
+  <rect width="800" height="260" fill="#ffffff" stroke="#d1d5db"/>
+  <text x="40" y="48" font-size="20" font-weight="600">Run #12</text>
+  <rect x="130" y="30" width="76" height="24" rx="12" fill="#fef3c7"/><text x="144" y="47" fill="#92400e" font-size="13">running</text>
+
+  <text x="40" y="104" fill="#374151" font-weight="600">Generations</text>
+  <text x="150" y="104">87 / 135</text>
+  <rect x="240" y="91" width="420" height="16" rx="8" fill="#e5e7eb"/><rect x="240" y="91" width="269" height="16" rx="8" fill="#2563eb"/>
+  <text x="676" y="104">64%</text>
+
+  <text x="40" y="148" fill="#374151" font-weight="600">Analysis</text>
+  <text x="150" y="148">60 / 135</text>
+  <rect x="240" y="135" width="420" height="16" rx="8" fill="#e5e7eb"/><rect x="240" y="135" width="187" height="16" rx="8" fill="#2563eb"/>
+  <text x="676" y="148">44%</text>
+
+  <text x="40" y="208" fill="#b91c1c" font-weight="600">Failed jobs: 2</text>
+  <rect x="160" y="188" width="116" height="30" rx="6" fill="#ffffff" stroke="#d1d5db"/><text x="176" y="208">Show reasons</text>
+</svg>

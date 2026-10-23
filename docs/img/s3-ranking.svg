@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#111827">
+  <rect width="800" height="470" fill="#ffffff" stroke="#d1d5db"/>
+  <text x="40" y="48" font-size="20" font-weight="600">Run #12</text>
+  <rect x="130" y="30" width="72" height="24" rx="12" fill="#dcfce7"/><text x="145" y="47" fill="#166534" font-size="13">finished</text>
+  <rect x="540" y="28" width="104" height="30" rx="6" fill="#ffffff" stroke="#d1d5db"/><text x="556" y="48">Export JSON</text>
+  <rect x="656" y="28" width="104" height="30" rx="6" fill="#ffffff" stroke="#d1d5db"/><text x="674" y="48">Export CSV</text>
+
+  <text x="40" y="96" fill="#374151">Analyser</text>
+  <rect x="104" y="78" width="120" height="28" rx="4" fill="#fff" stroke="#d1d5db"/><text x="116" y="97">Bandit</text><text x="206" y="97" fill="#6b7280">▾</text>
+  <text x="250" y="96" fill="#374151">Condition</text>
+  <rect x="322" y="78" width="130" height="28" rx="4" fill="#fff" stroke="#d1d5db"/><text x="334" y="97">Baseline</text><text x="434" y="97" fill="#6b7280">▾</text>
+
+  <rect x="40" y="124" width="720" height="34" fill="#f9fafb"/>
+  <text x="56" y="146" fill="#6b7280" font-weight="600">Model</text>
+  <text x="290" y="146" fill="#6b7280" font-weight="600">Insecure outputs</text>
+  <text x="590" y="146" fill="#6b7280" font-weight="600">Tasks</text>
+  <text x="660" y="146" fill="#6b7280" font-weight="600">Agreement</text>
+
+  <rect x="40" y="158" width="720" height="40" fill="#eff6ff"/><rect x="40" y="158" width="4" height="40" fill="#2563eb"/>
+  <text x="56" y="183" font-weight="600">1  deepseek-v4-flash</text>
+  <text x="290" y="183">10 / 15 (67%)</text>
+  <rect x="400" y="172" width="160" height="12" rx="6" fill="#e5e7eb"/><rect x="400" y="172" width="107" height="12" rx="6" fill="#dc2626"/>
+  <text x="600" y="183">15</text><text x="690" y="183" fill="#9ca3af">—</text>
+
+  <line x1="40" y1="198" x2="760" y2="198" stroke="#e5e7eb"/>
+  <text x="56" y="223">2  kimi-k2.6</text>
+  <text x="290" y="223">12 / 15 (80%)</text>
+  <rect x="400" y="212" width="160" height="12" rx="6" fill="#e5e7eb"/><rect x="400" y="212" width="128" height="12" rx="6" fill="#dc2626"/>
+  <text x="600" y="223">15</text><text x="690" y="223" fill="#9ca3af">—</text>
+
+  <line x1="40" y1="238" x2="760" y2="238" stroke="#e5e7eb"/>
+  <text x="56" y="263">3  gemma-4-31b-it</text>
+  <text x="290" y="263">13 / 15 (87%)</text>
+  <rect x="400" y="252" width="160" height="12" rx="6" fill="#e5e7eb"/><rect x="400" y="252" width="139" height="12" rx="6" fill="#dc2626"/>
+  <text x="600" y="263">15</text><text x="690" y="263" fill="#9ca3af">—</text>
+  <line x1="40" y1="278" x2="760" y2="278" stroke="#e5e7eb"/>
+
+  <text x="40" y="318" font-weight="600">CWE distribution: deepseek-v4-flash (selected)</text>
+  <text x="56" y="350">CWE-78</text>
+  <rect x="130" y="339" width="160" height="14" rx="3" fill="#f97316"/><text x="300" y="351">4</text>
+  <text x="56" y="380">CWE-89</text>
+  <rect x="130" y="369" width="120" height="14" rx="3" fill="#f97316"/><text x="260" y="381">3</text>
+
+  <text x="40" y="440" fill="#6b7280" font-size="12">Illustrative numbers (baseline, 15 tasks, Bandit only). Agreement stays empty until Semgrep and CodeQL are integrated.</text>
+</svg>
