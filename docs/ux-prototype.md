@@ -2,7 +2,8 @@
 
 Author: Dias Mukhametkali. Status: draft v0.2 (low-fidelity mockups), 2026-10-23.
 
-Replace the text wireframes with Figma exports or screenshots when ready, and put the link here: TODO.
+Mockups of screens S1-S4 are SVG images in [img/](img/), drawn from the text wireframes below.
+Figma version: TODO (to follow after pre-defense 1).
 The API examples are the contract between the UI and the backend ([requirements.md](requirements.md)).
 
 All screens and examples use one scenario: 3 models (gemma-4-31b-it, deepseek-v4-flash, kimi-k2.6) x 15 tasks
@@ -26,6 +27,8 @@ not measured results.
 ## 2. Screens
 
 ### S1. New run
+
+![S1. New run](img/s1-new-run.svg)
 
 ```
 +--------------------------------------------------------------+
@@ -51,6 +54,8 @@ not measured results.
 
 ### S2. Run progress
 
+![S2. Run progress](img/s2-run-progress.svg)
+
 ```
 +--------------------------------------------------------------+
 | Run #12   status: running                                    |
@@ -62,6 +67,8 @@ not measured results.
 ```
 
 ### S3. Ranking and metrics (main screen)
+
+![S3. Ranking and metrics](img/s3-ranking.svg)
 
 ```
 +--------------------------------------------------------------+
@@ -82,6 +89,8 @@ All counts are illustrative (baseline, 15 tasks, Bandit only). The CWE row count
 matches `cwe_distribution` in the API example below. The Agreement column stays empty until Semgrep and CodeQL are integrated.
 
 ### S4. Snippet view
+
+![S4. Snippet view](img/s4-snippet.svg)
 
 ```
 +--------------------------------------------------------------+
