@@ -86,3 +86,15 @@ def test_nul_characters_are_removed_from_the_answer():
     completion, _ = complete(lambda _: httpx.Response(200, json=reply))
 
     assert completion.text == "ab"
+
+
+def test_connect_timeout_is_short_and_reported_as_unreachable():
+    timeouts = []
+
+    def handler(request):
+        timeouts.append(request.extensions["timeout"])
+        raise httpx.ConnectTimeout("no route", request=request)
+
+    with pytest.raises(LLMError, match="unreachable"):
+        complete(handler)
+    assert (timeouts[0]["connect"], timeouts[0]["read"]) == (10, 180)

@@ -6,6 +6,8 @@ import httpx
 
 RETRY_STATUSES = (429, 502, 503)
 MAX_ATTEMPTS = 5
+# Generation may take minutes, but an unreachable server should fail the job quickly.
+CONNECT_TIMEOUT_SECONDS = 10
 
 
 class LLMError(Exception):
@@ -31,8 +33,9 @@ class LLMClient:
         sleep: Callable[[float], Awaitable[None]] = asyncio.sleep,
     ):
         headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
+        timeouts = httpx.Timeout(timeout, connect=CONNECT_TIMEOUT_SECONDS)
         self._http = httpx.AsyncClient(
-            base_url=base_url, headers=headers, timeout=timeout, transport=transport
+            base_url=base_url, headers=headers, timeout=timeouts, transport=transport
         )
         self._sleep = sleep
 
@@ -66,6 +69,8 @@ class LLMClient:
         for attempt in range(1, MAX_ATTEMPTS + 1):
             try:
                 response = await self._http.post("chat/completions", json=body)
+            except httpx.ConnectTimeout as error:
+                raise LLMError("LLM server unreachable: connect timeout") from error
             except httpx.TimeoutException as error:
                 raise LLMError("LLM server timeout") from error
             except httpx.HTTPError as error:
