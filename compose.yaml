@@ -44,6 +44,18 @@ services:
       queue:
         condition: service_healthy
 
+  analysis-worker:
+    image: security-assessment-backend
+    environment: *app-env
+    command: ["python", "-m", "app.workers.analysis"]
+    init: true
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      queue:
+        condition: service_healthy
+
   migrate:
     image: security-assessment-backend
     environment: *app-env
