@@ -16,8 +16,8 @@ services:
       # Localhost only: the API has no authentication yet.
       - "127.0.0.1:${API_PORT:-8000}:8000"
     depends_on:
-      db:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       queue:
         condition: service_healthy
     healthcheck:
@@ -25,6 +25,14 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  migrate:
+    image: security-assessment-backend
+    environment: *app-env
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:17-alpine

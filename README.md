@@ -50,6 +50,7 @@ a web UI framework (open decision). Justification: [docs/technology-comparison.m
 | Technology comparison | [docs/technology-comparison.md](docs/technology-comparison.md) |
 | Requirements | [docs/requirements.md](docs/requirements.md) |
 | Architecture and diagrams | [docs/architecture.md](docs/architecture.md) |
+| Database schema and ER diagram | [docs/database.md](docs/database.md) |
 | UX / prototype | [docs/ux-prototype.md](docs/ux-prototype.md) |
 | Verification plan | [docs/verification-plan.md](docs/verification-plan.md) |
 | Project management and risks | [docs/project-management.md](docs/project-management.md) |
