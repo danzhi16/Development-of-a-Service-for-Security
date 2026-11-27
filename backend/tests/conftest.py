@@ -1,11 +1,14 @@
 import asyncio
 
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
 from app.config import Settings
+from app.db import get_session
+from app.main import app
 from app.models import Base
 
 
@@ -33,3 +36,14 @@ def settings() -> Settings:
         rabbitmq_default_pass="test",
         health_timeout_seconds=0.2,
     )
+
+
+@pytest.fixture
+def api(session_factory):
+    async def override_session():
+        async with session_factory() as session:
+            yield session
+
+    app.dependency_overrides[get_session] = override_session
+    yield TestClient(app)
+    app.dependency_overrides.clear()
