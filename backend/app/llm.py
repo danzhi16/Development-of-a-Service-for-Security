@@ -55,7 +55,8 @@ class LLMClient:
         try:
             data = response.json()
             choice = data["choices"][0]
-            text = choice["message"]["content"] or ""
+            # PostgreSQL text cannot hold NUL; storing it would requeue the job forever.
+            text = (choice["message"]["content"] or "").replace("\x00", "")
         except (ValueError, KeyError, IndexError, TypeError) as error:
             raise LLMError(f"unexpected reply: {response.text[:300]}") from error
         return Completion(text, choice.get("finish_reason"), data.get("usage"))

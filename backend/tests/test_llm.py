@@ -78,3 +78,11 @@ def test_timeout_raises():
 
     with pytest.raises(LLMError, match="timeout"):
         complete(handler)
+
+
+def test_nul_characters_are_removed_from_the_answer():
+    reply = {"choices": [{"message": {"content": "a\x00b"}}]}
+
+    completion, _ = complete(lambda _: httpx.Response(200, json=reply))
+
+    assert completion.text == "ab"
