@@ -1,0 +1,22 @@
+[project]
+name = "security-assessment-backend"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "aio-pika>=10.2.3",
+    "asyncpg>=0.32.0",
+    "fastapi>=0.165.0",
+    "pydantic-settings>=2.16.3",
+    "uvicorn>=0.54.0",
+]
+
+[tool.pytest.ini_options]
+# The app is not installed as a package, so tests import it from this directory.
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.29.0",
+    "pytest>=9.2.0",
+]

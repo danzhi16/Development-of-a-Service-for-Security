@@ -59,4 +59,22 @@ YouTrack project: TODO (add the link).
 
 ## Setup, run, test
 
-Not available yet. This section will be filled when the first runnable code lands.
+Requirements: Docker with Compose; [uv](https://docs.astral.sh/uv/) for running tests locally.
+
+```bash
+cp .env.example .env        # then replace the passwords; change API_PORT if 8000 is busy
+docker compose up --build --wait
+curl http://127.0.0.1:8000/health
+```
+
+`/health` returns 200 when the database and the queue respond, otherwise 503 with the failed check.
+The API listens on localhost only because it has no authentication yet.
+
+Stop the stack with `docker compose down`; add `-v` to also delete the database and queue data.
+The PostgreSQL password is applied only when its volume is first created.
+
+Tests:
+
+```bash
+cd backend && uv run pytest
+```
