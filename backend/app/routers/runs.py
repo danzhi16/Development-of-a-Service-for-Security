@@ -7,13 +7,15 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import AfterValidator, BaseModel, Field, StringConstraints
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.analysers import SUPPORTED_ANALYSERS
 from app.config import Settings, get_settings
 from app.db import get_session
-from app.models import Generation, Run, RunStatus, Task
+from app.models import AnalysisResult, Generation, Run, RunStatus, Task
 from app.prompts import SUPPORTED_CONDITIONS, SYSTEM_PROMPT, build_prompt
 from app.queue import GENERATION_QUEUE, Publish, publish_jobs
+from app.run_view import RunDetail, run_detail
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["runs"])
@@ -92,3 +94,20 @@ async def create_run(
         await session.commit()
         raise HTTPException(503, f"queue unavailable; run {run.id} marked as failed") from error
     return RunCreated(id=run.id, status=run.status, total_jobs=len(run.generations))
+
+
+@router.get("/runs/{run_id}", response_model=RunDetail)
+async def get_run(run_id: int, session: AsyncSession = Depends(get_session)):
+    generations = selectinload(Run.generations)
+    query = (
+        select(Run)
+        .where(Run.id == run_id)
+        .options(
+            generations.joinedload(Generation.task),
+            generations.selectinload(Generation.analysis_results).selectinload(AnalysisResult.findings),
+        )
+    )
+    run = await session.scalar(query)
+    if run is None:
+        raise HTTPException(404, f"run {run_id} does not exist")
+    return run_detail(run)
