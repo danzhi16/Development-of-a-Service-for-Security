@@ -68,6 +68,41 @@ docker compose up --build --wait
 curl http://127.0.0.1:8000/health
 ```
 
+### Model server
+
+The generation worker calls any OpenAI-compatible API set by `LLM_BASE_URL` (vLLM, Ollama).
+The default points to Ollama on the Docker host: it must listen on an address that containers can
+reach (see `OLLAMA_HOST`), and the host firewall must allow it. Do not expose it to untrusted networks.
+
+To run the pipeline without a model, use the stub that always returns the same vulnerable code:
+
+```bash
+docker compose -f compose.yaml -f compose.stub.yaml up --build --wait
+```
+
+### Evaluation run
+
+Model names are passed to the model server as they are.
+
+```bash
+curl -X POST http://127.0.0.1:8000/runs -H 'content-type: application/json' \
+  -d '{"models": ["<model>"], "task_set": "builtin-python-15", "conditions": ["baseline", "security_prefix"]}'
+curl http://127.0.0.1:8000/runs/1
+```
+
+| Endpoint | Returns |
+|---|---|
+| `GET /tasks` | The built-in 15 tasks of the pilot |
+| `POST /runs` | Creates a run; optional `temperature`, `max_tokens`, `seed` |
+| `GET /runs/{id}` | Status, progress, failed jobs, generated code and findings |
+
+Interactive API documentation: `http://127.0.0.1:8000/docs`.
+
+Current limits: Bandit is the only analyser, `analyser_repair` is not implemented, and generated
+code is only scanned, never executed. A job that hits a database or queue error is retried until it succeeds.
+
+### Health and data
+
 `/health` returns 200 when the database and the queue respond, otherwise 503 with the failed check.
 The API listens on localhost only because it has no authentication yet.
 
@@ -78,4 +113,10 @@ Tests:
 
 ```bash
 cd backend && uv run pytest
+```
+
+End-to-end test against a stack started with the stub (set the port from `.env`):
+
+```bash
+cd backend && E2E_BASE_URL=http://127.0.0.1:8000 uv run pytest tests/test_e2e.py
 ```

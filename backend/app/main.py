@@ -2,8 +2,11 @@ from fastapi import Depends, FastAPI, Response
 
 from app.config import Settings, get_settings
 from app.health import run_checks
+from app.routers import runs, tasks
 
 app = FastAPI(title="Security Assessment Service")
+app.include_router(tasks.router)
+app.include_router(runs.router)
 
 
 @app.get("/health")

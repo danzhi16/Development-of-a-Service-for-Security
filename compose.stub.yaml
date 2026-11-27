@@ -1,0 +1,17 @@
+# Replaces the model server with a stub, so the pipeline runs without a GPU or a model.
+services:
+  stub-llm:
+    image: security-assessment-backend
+    pull_policy: never  # built locally by the api service
+    command: ["python", "tools/stub_llm.py"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  generation-worker:
+    environment:
+      LLM_BASE_URL: http://stub-llm:8000/v1
+      LLM_API_KEY: ""
+    depends_on:
+      stub-llm:
+        condition: service_started

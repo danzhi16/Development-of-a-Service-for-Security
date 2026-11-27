@@ -1,12 +1,17 @@
 import asyncio
 
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
 from app.config import Settings
+from app.db import get_session
+from app.main import app
 from app.models import Base
+from app.routers.runs import get_publisher
+from app.tasksets import seed_task_set
 
 
 @pytest.fixture
@@ -33,3 +38,32 @@ def settings() -> Settings:
         rabbitmq_default_pass="test",
         health_timeout_seconds=0.2,
     )
+
+
+@pytest.fixture
+def seeded(session_factory):
+    async def seed():
+        async with session_factory() as session:
+            await seed_task_set(session, "builtin-python-15")
+
+    asyncio.run(seed())
+
+
+@pytest.fixture
+def published() -> list[tuple[str, list[int]]]:
+    return []
+
+
+@pytest.fixture
+def api(session_factory, published):
+    async def override_session():
+        async with session_factory() as session:
+            yield session
+
+    async def publish(queue_name, generation_ids):
+        published.append((queue_name, generation_ids))
+
+    app.dependency_overrides[get_session] = override_session
+    app.dependency_overrides[get_publisher] = lambda: publish
+    yield TestClient(app)
+    app.dependency_overrides.clear()

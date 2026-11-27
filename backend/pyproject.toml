@@ -6,7 +6,9 @@ dependencies = [
     "aio-pika>=10.2.3",
     "alembic>=1.20.1",
     "asyncpg>=0.32.0",
+    "bandit==1.9.4",
     "fastapi>=0.165.0",
+    "httpx>=0.29.0",
     "pydantic-settings>=2.16.3",
     "sqlalchemy[asyncio]>=2.1.9",
     "uvicorn>=0.54.0",
@@ -20,6 +22,5 @@ testpaths = ["tests"]
 [dependency-groups]
 dev = [
     "aiosqlite>=0.22.1",
-    "httpx>=0.29.0",
     "pytest>=9.2.0",
 ]
