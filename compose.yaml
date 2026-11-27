@@ -26,6 +26,24 @@ services:
       timeout: 5s
       retries: 10
 
+  generation-worker:
+    image: security-assessment-backend
+    environment:
+      <<: *app-env
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:11434/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-180}
+    command: ["python", "-m", "app.workers.generation"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    init: true
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      queue:
+        condition: service_healthy
+
   migrate:
     image: security-assessment-backend
     environment: *app-env
