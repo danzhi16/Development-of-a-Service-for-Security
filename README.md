@@ -52,6 +52,7 @@ a web UI framework (open decision). Justification: [docs/technology-comparison.m
 | Architecture and diagrams | [docs/architecture.md](docs/architecture.md) |
 | UX / prototype | [docs/ux-prototype.md](docs/ux-prototype.md) |
 | Verification plan | [docs/verification-plan.md](docs/verification-plan.md) |
+| Analyser licence check | [docs/licence-check.md](docs/licence-check.md) |
 | Project management and risks | [docs/project-management.md](docs/project-management.md) |
 | Supervisor feedback | [docs/supervisor-feedback.md](docs/supervisor-feedback.md) |
 
