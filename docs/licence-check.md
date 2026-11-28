@@ -97,6 +97,40 @@ licence, per user [7]. Without a paid GitHub Code Security (Advanced Security) l
 **Result: CodeQL can be used for the diploma experiments, but not as a built-in analyser of the service
 without a paid licence.**
 
+## Summary
+
+| Analyser | Engine licence | Rules licence | U1 research | U2 self-hosted | U3 hosted | Bundle in our image |
+|---|---|---|---|---|---|---|
+| Bandit | Apache-2.0 | Apache-2.0 | Yes | Yes | Yes | Yes |
+| Semgrep | LGPL 2.1 | Semgrep Rules License v1.0 | Yes | Yes, rules fetched by the operator | No (Registry rules) | Engine yes, rules no |
+| CodeQL | Proprietary terms | MIT | Yes (academic) | Own licence needed | No | No |
+
+## Decision
+
+1. **Bandit** stays a built-in analyser.
+2. **Semgrep** is a built-in analyser. The engine is installed in the analysis image. Registry rules are
+   not committed to the repository and not copied into the image. The worker pulls them at run time
+   (`--config p/python`), and the run stores the Semgrep version and rule set name (NFR-06).
+   If the service ever becomes a hosted offering (U3), the Registry rules must be replaced by our own
+   rules or by rules with an open licence.
+3. **CodeQL** becomes an optional analyser, disabled by default. For the diploma we run it as a separate
+   research step on stored generations (academic research), and the results are imported for analysis.
+   An operator can enable the adapter only with their own GitHub Code Security licence.
+4. The fallback in R2 is confirmed: **Bandit + Semgrep** is the analyser set of the service. The limitation
+   is reported in the thesis.
+
+## Proposed changes to other documents
+
+These follow from the decision. Owners decide in review.
+
+| Document | Change | Owner |
+|---|---|---|
+| [requirements.md](requirements.md), FR-07 | "Bandit, Semgrep and CodeQL" becomes "Bandit and Semgrep; CodeQL when enabled by the operator" | Andrey |
+| [requirements.md](requirements.md), FR-14 | Snippet check uses Bandit and Semgrep only | Andrey |
+| [technology-comparison.md](technology-comparison.md), D6 | Licence row and decision updated (this pull request) | Danial |
+| [project-management.md](project-management.md), R2 | Status updated (this pull request) | Danial |
+| [verification-plan.md](verification-plan.md), B2 | Manual CodeQL run stays as the research baseline | Danial |
+
 ## References
 
 1. [Bandit on PyPI](https://pypi.org/project/bandit/) and [PyCQA/bandit repository](https://github.com/PyCQA/bandit): licence Apache-2.0.
