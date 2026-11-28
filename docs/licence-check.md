@@ -40,6 +40,40 @@ and are checked so that the limits are known.
 
 **Result: no restrictions for our use.**
 
+## Semgrep
+
+Semgrep has two parts with different licences, so they are checked separately.
+
+**Engine (Semgrep Community Edition).** Licence LGPL 2.1, open source [2]. We call the `semgrep` CLI as a
+separate process and parse its JSON output, so our code does not link to it. Bundling the binary in our
+image is allowed if we keep its licence text and point to its source.
+
+**Rules (Semgrep Registry, `semgrep/semgrep-rules`).** Since December 2024 all Semgrep-maintained rules,
+Community and Pro, are under the Semgrep Rules License v1.0 [3][4]. It is not an open-source licence. Main terms:
+
+- The rules may be used only for the user's own internal business purposes.
+- The licence does not allow distributing the rules or making them available to others as a service.
+- Semgrep's FAQ adds that vendors may not use the rules in competing products or SaaS offerings, and that
+  charging for scanning with these rules needs a paid licence [2].
+- Rules from third-party repositories in the Registry keep their own licences (some are AGPL-3.0) [2].
+
+| Use case | Engine | Registry rules | Notes |
+|---|---|---|---|
+| U1 | Yes | Yes | Internal, non-commercial research use |
+| U2 | Yes | Yes, if the deploying team downloads the rules itself | We must not copy the rules into our repository or image |
+| U3 | Yes | **No** | Making the rules available to others as a service is excluded |
+| U4 | Yes | Same as U2 or U3 | Depends on who hosts the service |
+
+**Alternative.** Opengrep is a fork of the Semgrep engine (from v1.100.0), also LGPL 2.1 [5]. It solves the
+engine question only. The licence of any rule set used with it must be checked separately.
+
+**Result: engine is fine; Registry rules are fine for the diploma and for self-hosting, but must not be
+bundled with the service or offered as a hosted scan.**
+
 ## References
 
 1. [Bandit on PyPI](https://pypi.org/project/bandit/) and [PyCQA/bandit repository](https://github.com/PyCQA/bandit): licence Apache-2.0.
+2. [Semgrep docs, Licensing](https://semgrep.dev/docs/licensing) and [Semgrep FAQ](https://semgrep.dev/docs/faq/overview): engine LGPL 2.1, rules under the Semgrep Rules License v1.0, internal business use only.
+3. [Semgrep Rules License v1.0](https://semgrep.dev/legal/rules-license): use only for own internal business purposes, no distribution, no making available as a service.
+4. [Semgrep blog, Important updates to Semgrep OSS (December 2024)](https://semgrep.dev/blog/2024/important-updates-to-semgrep-oss): rule licence change.
+5. [Opengrep repository](https://github.com/opengrep/opengrep): fork of Semgrep under LGPL 2.1.
