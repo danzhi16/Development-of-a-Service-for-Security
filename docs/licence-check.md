@@ -70,6 +70,33 @@ engine question only. The licence of any rule set used with it must be checked s
 **Result: engine is fine; Registry rules are fine for the diploma and for self-hosting, but must not be
 bundled with the service or offered as a hosted scan.**
 
+## CodeQL
+
+CodeQL also has two parts.
+
+**Queries and libraries (`github/codeql`).** MIT licence [6]. No restrictions.
+
+**CLI and engine (`github/codeql-cli-binaries`).** GitHub CodeQL Terms and Conditions, a proprietary
+licence, per user [7]. Without a paid GitHub Code Security (Advanced Security) licence:
+
+- Allowed: academic research, demonstrating the software, testing OSI-licensed queries, and analysing
+  an Open Source Codebase (code released under an OSI-approved licence).
+- Not allowed: using it on code that is not an Open Source Codebase.
+- Not allowed: generating CodeQL databases for automated analysis, CI or CD, except for open-source
+  projects hosted on GitHub.com.
+- Not allowed: making the software available as a hosted solution for others, or sharing or
+  redistributing it. This means we cannot put the CLI into our Docker image.
+
+| Use case | Allowed | Notes |
+|---|---|---|
+| U1 | Yes | Academic research. Run by a team member on stored generations, not by the automated pipeline |
+| U2 | Only with the deploying team's own licence | The service builds databases automatically, and generated code is usually not under an OSI licence |
+| U3 | **No** | Hosted solution for others is excluded |
+| U4 | **No** | User code is often closed source |
+
+**Result: CodeQL can be used for the diploma experiments, but not as a built-in analyser of the service
+without a paid licence.**
+
 ## References
 
 1. [Bandit on PyPI](https://pypi.org/project/bandit/) and [PyCQA/bandit repository](https://github.com/PyCQA/bandit): licence Apache-2.0.
@@ -77,3 +104,5 @@ bundled with the service or offered as a hosted scan.**
 3. [Semgrep Rules License v1.0](https://semgrep.dev/legal/rules-license): use only for own internal business purposes, no distribution, no making available as a service.
 4. [Semgrep blog, Important updates to Semgrep OSS (December 2024)](https://semgrep.dev/blog/2024/important-updates-to-semgrep-oss): rule licence change.
 5. [Opengrep repository](https://github.com/opengrep/opengrep): fork of Semgrep under LGPL 2.1.
+6. [github/codeql README](https://github.com/github/codeql): queries and libraries under the MIT licence; the CLI is licensed separately.
+7. [GitHub CodeQL Terms and Conditions](https://github.com/github/codeql-cli-binaries/blob/main/LICENSE.md) and [GitHub docs, CodeQL CLI](https://docs.github.com/en/code-security/concepts/code-scanning/codeql/codeql-cli).
