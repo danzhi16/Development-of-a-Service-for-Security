@@ -88,10 +88,11 @@ the measured effect of a mitigation depends on the analyser), CWE mapping, free 
 | Speed per snippet | ++ | ++ | - database build per run |
 | CWE tags in output | + | ++ rule metadata | ++ |
 | Effort to integrate | ++ | ++ | + |
-| Licence for our use | open source | open-source engine, check rule-pack terms | **check**: CodeQL terms restrict use outside open-source and research |
+| Licence for our use | ++ Apache-2.0 | + engine LGPL 2.1; Registry rules internal use only, not bundled | - free only for research and open-source code; not in a hosted service |
 
-**Decision: all three**, behind one `Analyser` interface. Licence terms for Semgrep rule packs and CodeQL
-must be checked and recorded before the final defense (task in backlog).
+**Decision: Bandit + Semgrep built in, CodeQL optional**, all behind one `Analyser` interface.
+CodeQL is used for the diploma experiments as academic research and is disabled by default in the service.
+Details and sources: [licence-check.md](licence-check.md) (DIP-13).
 
 ## Summary of decisions
 
@@ -102,7 +103,7 @@ must be checked and recorded before the final defense (task in backlog).
 | Inference | vLLM (+ Ollama fallback) | llama.cpp | yes |
 | Storage | PostgreSQL | SQLite (tests only), MongoDB | no |
 | Isolation | Docker hardened | gVisor, Firecracker | no |
-| Analysers | Bandit + Semgrep + CodeQL | none | licence check |
+| Analysers | Bandit + Semgrep (CodeQL optional) | none | DIP-12 spike |
 
 Frontend technology is compared in [ux-prototype.md](ux-prototype.md).
 
