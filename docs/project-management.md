@@ -66,7 +66,7 @@ Every task needs an assignee, expected outcome, acceptance criteria and deadline
 | ID | Risk | Probability | Impact | Mitigation | Owner |
 |---|---|---|---|---|---|
 | R1 | Not enough GPU memory to run three target models locally | Medium | High | Quantised models through Ollama; start with smaller models; vLLM spike in DIP-11 | Andrey |
-| R2 | CodeQL licence or setup blocks use in the service | Medium | Medium | Check terms in DIP-13; fall back to Bandit + Semgrep and report the limitation | Danial |
+| R2 | CodeQL licence or setup blocks use in the service | Confirmed (DIP-13) | Medium | Bandit + Semgrep built in; CodeQL optional and used only for research runs; Semgrep Registry rules not bundled ([licence check](licence-check.md)) | Danial |
 | R3 | Analysers disagree so much that the metrics are not trustworthy | High | Medium | This is a research finding, not only a risk; report agreement and use a manually labelled sample as reference | Danial |
 | R4 | Untrusted generated code escapes the sandbox | Low | High | Static analysis only in MVP; hardened container; no network | Andrey |
 | R5 | Team members work in parallel with a job, so the schedule slips | High | Medium | Weekly sync with supervisor, small tasks of 1-3 days, re-plan at each milestone | All |
